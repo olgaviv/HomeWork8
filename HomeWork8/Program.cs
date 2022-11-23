@@ -118,7 +118,7 @@ Console.WriteLine($"\n{minSumLine} - строкa с наименьшей сум�
 
 */
 // Задайте две матрицы. Напишите программу, которая будет находить произведение двух матриц.
-
+/*
  int[,]CreateRandom2Array(int rows, int columns, int minValue, int maxValue )
 {
     int[,] array = new int[rows, columns];
@@ -153,8 +153,6 @@ void MultiplyMatrix(int[,] array1, int[,] array2, int[,] resultArray)
     }
   }
 }
-
-
 Console.Write("Input a number of rows:");
 int m1 = Convert.ToInt32(Console.ReadLine());
 Console.Write("Input a number of columns:");
@@ -175,9 +173,59 @@ Console.Write("Input a max possible value:");
 int max2 = Convert.ToInt32(Console.ReadLine());
 int[,] myArray2 = CreateRandom2Array(m2, n2, min2, max2);
 int[,] resultArray = new int[m1,n2];
-
-
 Show2Array (myArray2);
 MultiplyMatrix(myArray1, myArray2, resultArray);
 Console.WriteLine($"Произведение первой и второй матриц:");
 Show2Array (resultArray);
+
+*/
+
+// Напишите программу, которая заполнит спирально массив.
+
+int[,] CreateSpiral(int m, int n)
+{
+    int[,] array = new int[m, n];   
+    int ibeg = 0, ifin = 0, jbeg = 0, jfin = 0; // точки начала и конца прямоугольника
+    
+    int k = 1; // перем для заполнения самого массива
+    int i = 0;
+    int j = 0;
+
+    while (k <= m*n)
+    {
+        array[i,j] = k;
+        if (i == ibeg && j < m - jfin - 1)
+            ++j;
+        else if (j == m - jfin - 1 && i < n - ifin - 1)
+            ++i;
+        else if (i == n - ifin - 1 && j > jbeg)
+            --j;
+        else
+            --i;
+
+        if ((i == ibeg + 1) && (j == jbeg) && (jbeg != m - jfin - 1))
+        {
+            ibeg++;
+            ifin++;
+            jbeg++;
+            jfin++;
+        }
+        k++;
+    }
+    return array;
+}  
+void Show2Array(int [,] array)
+{
+    for(int i = 0; i< array.GetLength(0); i++)
+    {
+        for(int j=0; j < array.GetLength(1); j++)
+            Console.Write(array[i,j] + " ");
+        Console.WriteLine();
+    }
+}
+Console.Write("Input a number of rows:");
+int m = Convert.ToInt32(Console.ReadLine());
+Console.Write("Input a number of columns:");
+int n = Convert.ToInt32(Console.ReadLine());
+
+Show2Array (CreateSpiral(m,n));
